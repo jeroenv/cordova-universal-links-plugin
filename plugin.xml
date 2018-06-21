@@ -23,20 +23,27 @@
     <clobbers target="universalLinks"/>
   </js-module>
 
-<!-- Hooks -->
-  <hook src="hooks/afterPrepareHook.js" type="after_prepare"/>
-  <hook src="hooks/beforePluginInstallHook.js" type="before_plugin_install" />
-
   <platform name="ios">
-    <hook src="hooks/iosBeforePrepareHook.js" type="before_prepare" />
 
-<!-- Plugin inclusion in Cordova config.xml  -->
+    <!-- Plugin inclusion in Cordova config.xml  -->
     <config-file parent="/*" target="config.xml">
       <feature name="UniversalLinks">
         <param name="ios-package" value="CULPlugin"/>
         <param name="onload" value="true"/>
       </feature>
     </config-file>
+    
+    <config-file target="*/Entitlements-Debug.plist" parent="com.apple.developer.associated-domains">
+      <array>
+        <string>applinks:staging.cheqroom.com</string>
+      </array>
+</config-file>
+
+<config-file target="*/Entitlements-Release.plist" parent="com.apple.developer.associated-domains">
+      <array>
+        <string>applinks:app.cheqroom.com</string>
+      </array>
+</config-file>
 
 <!-- Objective-C Sources -->
 
